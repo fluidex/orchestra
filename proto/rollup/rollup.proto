@@ -5,10 +5,15 @@ package rollup_state;
 import "google/api/annotations.proto";
 
 service RollupState {
+  rpc L2BlocksQuery(L2BlocksQueryRequest) returns (L2BlocksQueryResponse) {
+    option (google.api.http) = {
+      get : "/api/l2_blocks"
+    };
+  }
+
   rpc L2BlockQuery(L2BlockQueryRequest) returns (L2BlockQueryResponse) {
     option (google.api.http) = {
-      post : "/api/l2_block/{block_id}"
-      body : "*"
+      get : "/api/l2_block/{block_id}"
     };
   }
 
@@ -18,6 +23,21 @@ service RollupState {
       post : "/api/token_balance/{account_id}/{token_id}"
       body : "*"
     };
+  }
+}
+
+message L2BlocksQueryRequest {
+  int64 offset = 1;
+  int64 limit = 2;
+}
+
+message L2BlocksQueryResponse {
+  int64 total = 1;
+  repeated BlockSummary blocks = 2;
+  message BlockSummary {
+    int64 block_height = 1;
+    string merkle_root = 2;
+    double block_time = 3;
   }
 }
 
@@ -52,7 +72,7 @@ message TokenBalanceQueryResponse {
 enum TaskStatus {
   INITED = 0;
   WITGENING = 1;
-  READY = 2;
-  ASSIGNED = 3;
+  WITGENED = 2;
+  PROVING = 3;
   PROVED = 4;
 }
