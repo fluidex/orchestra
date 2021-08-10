@@ -21,7 +21,7 @@ services:
     volumes:
       - ./volumes/exchange_kafka/log:/var/log/kafka
     environment:
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ZOOKEEPER_CONNECT: exchange_zookeeper:2181
       KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
       KAFKA_CREATE_TOPICS: "trades:1:1,orders:1:1,balances:1:1,internaltransfer:1:1,registeruser:1:1,unifyevents:1:1"
 
