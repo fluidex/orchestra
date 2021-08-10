@@ -34,7 +34,7 @@ services:
     command: -c /etc/envoy/envoy.yaml --log-level debug
     volumes:
       - ./envoy_config/exchange.yaml:/etc/envoy/envoy.yaml
-      - ./proto_config/exchange_matchengine.pb:/tmp/envoy/proto.pb
+      - ../proto/exchange/matchengine.pb:/tmp/envoy/proto.pb
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
@@ -47,7 +47,7 @@ services:
     command: -c /etc/envoy/envoy.yaml --log-level debug
     volumes:
       - ./envoy_config/rollup.yaml:/etc/envoy/envoy.yaml
-      - ./proto_config/rollup_state.pb:/tmp/envoy/proto.pb
+      - ../proto/rollup/rollup.pb:/tmp/envoy/proto.pb
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
