@@ -291,6 +291,7 @@ message TransferRequest {
   string asset = 3;
   string delta = 4; // should be > 0
   string memo = 5;
+  string signature = 6;
 }
 
 message TransferResponse {

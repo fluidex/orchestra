@@ -355,6 +355,8 @@ pub struct TransferRequest {
     pub delta: ::prost::alloc::string::String,
     #[prost(string, tag = "5")]
     pub memo: ::prost::alloc::string::String,
+    #[prost(string, tag = "6")]
+    pub signature: ::prost::alloc::string::String,
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct TransferResponse {
