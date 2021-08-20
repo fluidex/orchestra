@@ -287,10 +287,10 @@ pub struct BatchOrderPutRequest {
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct BatchOrderPutResponse {
-    #[prost(enumeration = "Result", tag = "1")]
-    pub res: i32,
+    #[prost(enumeration = "ResultCode", tag = "1")]
+    pub result_code: i32,
     #[prost(string, tag = "2")]
-    pub err_msg: ::prost::alloc::string::String,
+    pub error_message: ::prost::alloc::string::String,
     #[prost(uint64, repeated, tag = "3")]
     pub order_ids: ::prost::alloc::vec::Vec<u64>,
 }
@@ -447,7 +447,7 @@ pub enum OrderType {
     ::prost::Enumeration,
 )]
 #[repr(i32)]
-pub enum Result {
+pub enum ResultCode {
     Success = 0,
     InternalError = 1,
 }

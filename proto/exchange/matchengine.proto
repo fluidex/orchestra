@@ -162,7 +162,7 @@ enum OrderType {
   MARKET = 1;
 }
 
-enum Result {
+enum ResultCode {
   SUCCESS = 0;
   INTERNAL_ERROR = 1;
 }
@@ -270,8 +270,8 @@ message BatchOrderPutRequest {
 }
 
 message BatchOrderPutResponse {
-  Result res = 1;
-  string err_msg = 2;
+  ResultCode result_code = 1;
+  string error_message = 2;
   repeated uint64 order_ids = 3;
 }
 
