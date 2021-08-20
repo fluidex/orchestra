@@ -277,6 +277,24 @@ pub struct OrderDetailRequest {
     pub order_id: u64,
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+pub struct BatchOrderPutRequest {
+    #[prost(string, tag = "1")]
+    pub market: ::prost::alloc::string::String,
+    #[prost(bool, tag = "2")]
+    pub reset: bool,
+    #[prost(message, repeated, tag = "3")]
+    pub orders: ::prost::alloc::vec::Vec<OrderPutRequest>,
+}
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+pub struct BatchOrderPutResponse {
+    #[prost(enumeration = "Result", tag = "1")]
+    pub res: i32,
+    #[prost(string, tag = "2")]
+    pub err_msg: ::prost::alloc::string::String,
+    #[prost(uint64, repeated, tag = "3")]
+    pub order_ids: ::prost::alloc::vec::Vec<u64>,
+}
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct MarketListRequest {}
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct MarketListResponse {
@@ -415,6 +433,24 @@ pub enum OrderType {
     Limit = 0,
     Market = 1,
 }
+#[derive(
+    serde::Serialize,
+    serde::Deserialize,
+    Clone,
+    Copy,
+    Debug,
+    PartialEq,
+    Eq,
+    Hash,
+    PartialOrd,
+    Ord,
+    ::prost::Enumeration,
+)]
+#[repr(i32)]
+pub enum Result {
+    Success = 0,
+    InternalError = 1,
+}
 #[doc = r" Generated client implementations."]
 pub mod matchengine_client {
     #![allow(unused_variables, dead_code, missing_docs)]
@@ -520,6 +556,21 @@ pub mod matchengine_client {
             })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/matchengine.Matchengine/OrderPut");
+            self.inner.unary(request.into_request(), path, codec).await
+        }
+        pub async fn batch_order_put(
+            &mut self,
+            request: impl tonic::IntoRequest<super::BatchOrderPutRequest>,
+        ) -> Result<tonic::Response<super::BatchOrderPutResponse>, tonic::Status> {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path =
+                http::uri::PathAndQuery::from_static("/matchengine.Matchengine/BatchOrderPut");
             self.inner.unary(request.into_request(), path, codec).await
         }
         pub async fn order_query(
@@ -738,6 +789,10 @@ pub mod matchengine_server {
             &self,
             request: tonic::Request<super::OrderPutRequest>,
         ) -> Result<tonic::Response<super::OrderInfo>, tonic::Status>;
+        async fn batch_order_put(
+            &self,
+            request: tonic::Request<super::BatchOrderPutRequest>,
+        ) -> Result<tonic::Response<super::BatchOrderPutResponse>, tonic::Status>;
         async fn order_query(
             &self,
             request: tonic::Request<super::OrderQueryRequest>,
@@ -969,6 +1024,39 @@ pub mod matchengine_server {
                         let interceptor = inner.1.clone();
                         let inner = inner.0;
                         let method = OrderPutSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = if let Some(interceptor) = interceptor {
+                            tonic::server::Grpc::with_interceptor(codec, interceptor)
+                        } else {
+                            tonic::server::Grpc::new(codec)
+                        };
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/matchengine.Matchengine/BatchOrderPut" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchOrderPutSvc<T: Matchengine>(pub Arc<T>);
+                    impl<T: Matchengine> tonic::server::UnaryService<super::BatchOrderPutRequest>
+                        for BatchOrderPutSvc<T>
+                    {
+                        type Response = super::BatchOrderPutResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchOrderPutRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).batch_order_put(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let interceptor = inner.1.clone();
+                        let inner = inner.0;
+                        let method = BatchOrderPutSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = if let Some(interceptor) = interceptor {
                             tonic::server::Grpc::with_interceptor(codec, interceptor)

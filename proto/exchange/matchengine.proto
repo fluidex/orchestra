@@ -34,6 +34,12 @@ service Matchengine {
       body : "*"
     };
   }
+  rpc BatchOrderPut(BatchOrderPutRequest) returns (BatchOrderPutResponse) {
+    option (google.api.http) = {
+      post : "/api/batchorders/{market}"
+      body : "*"
+    };
+  }
   rpc OrderQuery(OrderQueryRequest) returns (OrderQueryResponse) {
     option (google.api.http) = {
       get : "/api/orders/{market}/{user_id}"
@@ -156,6 +162,11 @@ enum OrderType {
   MARKET = 1;
 }
 
+enum Result {
+  SUCCESS = 0;
+  INTERNAL_ERROR = 1;
+}
+
 message OrderPutRequest {
   uint32 user_id = 1;
   string market = 2;
@@ -250,6 +261,18 @@ message OrderBookDepthResponse {
 message OrderDetailRequest {
   string market = 1;
   uint64 order_id = 2;
+}
+
+message BatchOrderPutRequest {
+  string market = 1;
+  bool reset = 2;
+  repeated OrderPutRequest orders = 3;
+}
+
+message BatchOrderPutResponse {
+  Result res = 1;
+  string err_msg = 2;
+  repeated uint64 order_ids = 3;
 }
 
 message MarketListRequest {}
