@@ -1,0 +1,974 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "proto/exchange/matchengine.proto",
+    "version": "version not set"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/assets": {
+      "get": {
+        "operationId": "Matchengine_AssetList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/matchengineAssetListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "tags": [
+          "Matchengine"
+        ]
+      }
+    },
+    "/api/balances/{user_id}": {
+      "get": {
+        "operationId": "Matchengine_BalanceQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/matchengineBalanceQueryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "assets",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "Matchengine"
+        ]
+      }
+    },
+    "/api/batchorders/{market}": {
+      "post": {
+        "operationId": "Matchengine_BatchOrderPut",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/matchengineBatchOrderPutResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "market",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/matchengineBatchOrderPutRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Matchengine"
+        ]
+      }
+    },
+    "/api/cancelorder/{market}/{user_id}/{order_id}": {
+      "post": {
+        "operationId": "Matchengine_OrderCancel",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/matchengineOrderInfo"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "market",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/matchengineOrderCancelRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Matchengine"
+        ]
+      }
+    },
+    "/api/cancelorders/{market}/{user_id}": {
+      "post": {
+        "operationId": "Matchengine_OrderCancelAll",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/matchengineOrderCancelAllResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "market",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/matchengineOrderCancelAllRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Matchengine"
+        ]
+      }
+    },
+    "/api/depth/{market}/{limit}": {
+      "get": {
+        "summary": "rpc OrderBook(OrderBookRequest) returns (OrderBookResponse) {}",
+        "operationId": "Matchengine_OrderBookDepth",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/matchengineOrderBookDepthResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "market",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "interval",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Matchengine"
+        ]
+      }
+    },
+    "/api/markets": {
+      "get": {
+        "operationId": "Matchengine_MarketList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/matchengineMarketListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "tags": [
+          "Matchengine"
+        ]
+      }
+    },
+    "/api/order": {
+      "post": {
+        "summary": "rpc AssetSummary(AssetSummaryRequest) returns (AssetSummaryResponse) {}",
+        "operationId": "Matchengine_OrderPut",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/matchengineOrderInfo"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/matchengineOrderPutRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Matchengine"
+        ]
+      }
+    },
+    "/api/orders/{market}/{user_id}": {
+      "get": {
+        "operationId": "Matchengine_OrderQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/matchengineOrderQueryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "market",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Matchengine"
+        ]
+      }
+    },
+    "/api/registeruser": {
+      "post": {
+        "operationId": "Matchengine_RegisterUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/matchengineUserInfo"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/matchengineUserInfo"
+            }
+          }
+        ],
+        "tags": [
+          "Matchengine"
+        ]
+      }
+    },
+    "/api/transfer": {
+      "post": {
+        "operationId": "Matchengine_Transfer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/matchengineTransferResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/matchengineTransferRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Matchengine"
+        ]
+      }
+    },
+    "/api/updatebalance": {
+      "post": {
+        "operationId": "Matchengine_BalanceUpdate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/matchengineBalanceUpdateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/matchengineBalanceUpdateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Matchengine"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AssetListResponseAssetInfo": {
+      "type": "object",
+      "properties": {
+        "symbol": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "chain_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "token_address": {
+          "type": "string"
+        },
+        "precision": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "logo_uri": {
+          "type": "string"
+        },
+        "inner_id": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "BalanceQueryResponseAssetBalance": {
+      "type": "object",
+      "properties": {
+        "asset_id": {
+          "type": "string"
+        },
+        "available": {
+          "type": "string"
+        },
+        "frozen": {
+          "type": "string"
+        }
+      }
+    },
+    "MarketListResponseMarketInfo": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "base": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "string"
+        },
+        "fee_precision": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "amount_precision": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "price_precision": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "min_amount": {
+          "type": "string"
+        }
+      }
+    },
+    "MarketSummaryResponseMarketSummary": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "ask_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ask_amount": {
+          "type": "string"
+        },
+        "bid_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "bid_amount": {
+          "type": "string"
+        },
+        "trade_count": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "OrderBookDepthResponsePriceInfo": {
+      "type": "object",
+      "properties": {
+        "price": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string"
+        }
+      }
+    },
+    "matchengineAssetListResponse": {
+      "type": "object",
+      "properties": {
+        "asset_lists": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AssetListResponseAssetInfo"
+          }
+        }
+      }
+    },
+    "matchengineBalanceQueryResponse": {
+      "type": "object",
+      "properties": {
+        "balances": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BalanceQueryResponseAssetBalance"
+          }
+        }
+      }
+    },
+    "matchengineBalanceUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "asset": {
+          "type": "string"
+        },
+        "business": {
+          "type": "string"
+        },
+        "business_id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "delta": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        }
+      }
+    },
+    "matchengineBalanceUpdateResponse": {
+      "type": "object"
+    },
+    "matchengineBatchOrderPutRequest": {
+      "type": "object",
+      "properties": {
+        "market": {
+          "type": "string"
+        },
+        "reset": {
+          "type": "boolean"
+        },
+        "orders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/matchengineOrderPutRequest"
+          }
+        }
+      }
+    },
+    "matchengineBatchOrderPutResponse": {
+      "type": "object",
+      "properties": {
+        "result_code": {
+          "$ref": "#/definitions/matchengineResultCode"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "order_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uint64"
+          }
+        }
+      }
+    },
+    "matchengineDebugDumpResponse": {
+      "type": "object"
+    },
+    "matchengineDebugReloadResponse": {
+      "type": "object"
+    },
+    "matchengineDebugResetResponse": {
+      "type": "object"
+    },
+    "matchengineMarketListResponse": {
+      "type": "object",
+      "properties": {
+        "markets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MarketListResponseMarketInfo"
+          }
+        }
+      }
+    },
+    "matchengineMarketSummaryResponse": {
+      "type": "object",
+      "properties": {
+        "market_summaries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MarketSummaryResponseMarketSummary"
+          }
+        }
+      }
+    },
+    "matchengineOrderBookDepthResponse": {
+      "type": "object",
+      "properties": {
+        "asks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderBookDepthResponsePriceInfo"
+          }
+        },
+        "bids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderBookDepthResponsePriceInfo"
+          }
+        }
+      }
+    },
+    "matchengineOrderCancelAllRequest": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "market": {
+          "type": "string"
+        }
+      }
+    },
+    "matchengineOrderCancelAllResponse": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "matchengineOrderCancelRequest": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "market": {
+          "type": "string"
+        },
+        "order_id": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "matchengineOrderInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "market": {
+          "type": "string"
+        },
+        "order_side": {
+          "$ref": "#/definitions/matchengineOrderSide"
+        },
+        "order_type": {
+          "$ref": "#/definitions/matchengineOrderType"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "create_time": {
+          "type": "number",
+          "format": "double"
+        },
+        "update_time": {
+          "type": "number",
+          "format": "double"
+        },
+        "price": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string"
+        },
+        "taker_fee": {
+          "type": "string"
+        },
+        "maker_fee": {
+          "type": "string"
+        },
+        "remain": {
+          "type": "string"
+        },
+        "finished_base": {
+          "type": "string"
+        },
+        "finished_quote": {
+          "type": "string"
+        },
+        "finished_fee": {
+          "type": "string"
+        },
+        "post_only": {
+          "type": "boolean"
+        }
+      }
+    },
+    "matchengineOrderPutRequest": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "market": {
+          "type": "string"
+        },
+        "order_side": {
+          "$ref": "#/definitions/matchengineOrderSide"
+        },
+        "order_type": {
+          "$ref": "#/definitions/matchengineOrderType"
+        },
+        "amount": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        },
+        "quote_limit": {
+          "type": "string"
+        },
+        "taker_fee": {
+          "type": "string"
+        },
+        "maker_fee": {
+          "type": "string"
+        },
+        "post_only": {
+          "type": "boolean"
+        },
+        "signature": {
+          "type": "string",
+          "description": "(ignored for Market orders)."
+        }
+      }
+    },
+    "matchengineOrderQueryResponse": {
+      "type": "object",
+      "properties": {
+        "offset": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "orders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/matchengineOrderInfo"
+          }
+        }
+      }
+    },
+    "matchengineOrderSide": {
+      "type": "string",
+      "enum": [
+        "ASK",
+        "BID"
+      ],
+      "default": "ASK"
+    },
+    "matchengineOrderType": {
+      "type": "string",
+      "enum": [
+        "LIMIT",
+        "MARKET"
+      ],
+      "default": "LIMIT"
+    },
+    "matchengineResultCode": {
+      "type": "string",
+      "enum": [
+        "SUCCESS",
+        "INTERNAL_ERROR"
+      ],
+      "default": "SUCCESS"
+    },
+    "matchengineSimpleSuccessResponse": {
+      "type": "object"
+    },
+    "matchengineTransferRequest": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "asset": {
+          "type": "string"
+        },
+        "delta": {
+          "type": "string"
+        },
+        "memo": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        }
+      }
+    },
+    "matchengineTransferResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "asset": {
+          "type": "string"
+        },
+        "balance_from": {
+          "type": "string"
+        }
+      }
+    },
+    "matchengineUserInfo": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "l1_address": {
+          "type": "string"
+        },
+        "l2_pubkey": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "runtimeError": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
