@@ -1,5 +1,14 @@
 ///
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+pub struct EthLogMetadata {
+    #[prost(uint64, tag = "1")]
+    pub block_number: u64,
+    #[prost(string, tag = "2")]
+    pub tx_hash: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub log_index: ::prost::alloc::string::String,
+}
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct UserInfo {
     #[prost(uint32, tag = "1")]
     pub user_id: u32,
@@ -7,8 +16,8 @@ pub struct UserInfo {
     pub l1_address: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
     pub l2_pubkey: ::prost::alloc::string::String,
-    #[prost(string, optional, tag = "4")]
-    pub tx_hash: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(message, optional, tag = "4")]
+    pub log_metadata: ::core::option::Option<EthLogMetadata>,
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct BalanceQueryRequest {
@@ -49,8 +58,8 @@ pub struct BalanceUpdateRequest {
     pub delta: ::prost::alloc::string::String,
     #[prost(string, tag = "6")]
     pub detail: ::prost::alloc::string::String,
-    #[prost(string, optional, tag = "7")]
-    pub tx_hash: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(message, optional, tag = "7")]
+    pub log_metadata: ::core::option::Option<EthLogMetadata>,
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct BalanceUpdateResponse {}

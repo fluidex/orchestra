@@ -89,11 +89,17 @@ service Matchengine {
 }
 
 //
+message EthLogMetadata {
+  uint64 block_number = 1;
+  string tx_hash = 2;
+  string log_index = 3;
+}
+
 message UserInfo {
   uint32 user_id = 1;
   string l1_address = 2;
   string l2_pubkey = 3;
-  optional string tx_hash = 4;
+  optional EthLogMetadata log_metadata = 4;
 }
 
 message BalanceQueryRequest {
@@ -117,7 +123,7 @@ message BalanceUpdateRequest {
   uint64 business_id = 4;
   string delta = 5;
   string detail = 6;
-  optional string tx_hash = 7;
+  optional EthLogMetadata log_metadata = 7;
 }
 
 message BalanceUpdateResponse {}
