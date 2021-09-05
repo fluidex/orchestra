@@ -149,7 +149,7 @@ pub struct OrderPutRequest {
     pub post_only: bool,
     /// (ignored for Market orders).
     ///
-    /// bjj signature used in Fluidex
+    /// bjj signature used in FluiDex
     #[prost(string, tag = "11")]
     pub signature: ::prost::alloc::string::String,
 }
