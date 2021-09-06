@@ -4,6 +4,11 @@
     "title": "proto/rollup/rollup.proto",
     "version": "version not set"
   },
+  "tags": [
+    {
+      "name": "RollupState"
+    }
+  ],
   "consumes": [
     "application/json"
   ],
@@ -11,7 +16,7 @@
     "application/json"
   ],
   "paths": {
-    "/rollupapi/l2_block/{block_id}": {
+    "/rollupapi/l2_block/{blockId}": {
       "get": {
         "operationId": "RollupState_L2BlockQuery",
         "responses": {
@@ -24,13 +29,13 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/runtimeError"
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         },
         "parameters": [
           {
-            "name": "block_id",
+            "name": "blockId",
             "in": "path",
             "required": true,
             "type": "string",
@@ -55,7 +60,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/runtimeError"
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         },
@@ -80,7 +85,7 @@
         ]
       }
     },
-    "/rollupapi/token_balance/{account_id}/{token_id}": {
+    "/rollupapi/token_balance/{accountId}/{tokenId}": {
       "post": {
         "operationId": "RollupState_TokenBalanceQuery",
         "responses": {
@@ -93,20 +98,20 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/runtimeError"
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         },
         "parameters": [
           {
-            "name": "account_id",
+            "name": "accountId",
             "in": "path",
             "required": true,
             "type": "integer",
             "format": "int64"
           },
           {
-            "name": "token_id",
+            "name": "tokenId",
             "in": "path",
             "required": true,
             "type": "integer",
@@ -117,7 +122,15 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/rollup_stateTokenBalanceQueryRequest"
+              "type": "object",
+              "properties": {
+                "tokenAddress": {
+                  "type": "string"
+                },
+                "tokenName": {
+                  "type": "string"
+                }
+              }
             }
           }
         ],
@@ -143,14 +156,14 @@
     "L2BlocksQueryResponseBlockSummary": {
       "type": "object",
       "properties": {
-        "block_height": {
+        "blockHeight": {
           "type": "string",
           "format": "int64"
         },
-        "merkle_root": {
+        "merkleRoot": {
           "type": "string"
         },
-        "block_time": {
+        "blockTime": {
           "type": "number",
           "format": "double"
         }
@@ -159,30 +172,27 @@
     "protobufAny": {
       "type": "object",
       "properties": {
-        "type_url": {
+        "@type": {
           "type": "string"
-        },
-        "value": {
-          "type": "string",
-          "format": "byte"
         }
-      }
+      },
+      "additionalProperties": {}
     },
     "rollup_stateL2BlockQueryResponse": {
       "type": "object",
       "properties": {
-        "new_root": {
+        "newRoot": {
           "type": "string"
         },
-        "created_time": {
+        "createdTime": {
           "type": "number",
           "format": "double"
         },
-        "tx_num": {
+        "txNum": {
           "type": "string",
           "format": "uint64"
         },
-        "real_tx_num": {
+        "realTxNum": {
           "type": "string",
           "format": "uint64"
         },
@@ -216,31 +226,10 @@
       "type": "string",
       "enum": [
         "INITED",
-        "WITGENING",
-        "WITGENED",
         "PROVING",
         "PROVED"
       ],
       "default": "INITED"
-    },
-    "rollup_stateTokenBalanceQueryRequest": {
-      "type": "object",
-      "properties": {
-        "account_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "token_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "token_address": {
-          "type": "string"
-        },
-        "token_name": {
-          "type": "string"
-        }
-      }
     },
     "rollup_stateTokenBalanceQueryResponse": {
       "type": "object",
@@ -248,7 +237,7 @@
         "balance": {
           "type": "string"
         },
-        "balance_raw": {
+        "balanceRaw": {
           "type": "string"
         },
         "precision": {
@@ -257,12 +246,9 @@
         }
       }
     },
-    "runtimeError": {
+    "rpcStatus": {
       "type": "object",
       "properties": {
-        "error": {
-          "type": "string"
-        },
         "code": {
           "type": "integer",
           "format": "int32"
