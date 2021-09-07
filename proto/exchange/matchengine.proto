@@ -123,7 +123,8 @@ message BalanceUpdateRequest {
   uint64 business_id = 4;
   string delta = 5;
   string detail = 6;
-  optional EthLogMetadata log_metadata = 7;
+  optional string signature = 7; // Only use for withdraw now.
+  optional EthLogMetadata log_metadata = 8;
 }
 
 message BalanceUpdateResponse {}

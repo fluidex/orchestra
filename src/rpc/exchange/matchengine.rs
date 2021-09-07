@@ -58,7 +58,10 @@ pub struct BalanceUpdateRequest {
     pub delta: ::prost::alloc::string::String,
     #[prost(string, tag = "6")]
     pub detail: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "7")]
+    /// Only use for withdraw now.
+    #[prost(string, optional, tag = "7")]
+    pub signature: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(message, optional, tag = "8")]
     pub log_metadata: ::core::option::Option<EthLogMetadata>,
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
