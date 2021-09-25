@@ -90,10 +90,8 @@ pub struct TokenBalanceQueryResponse {
 #[repr(i32)]
 pub enum TaskStatus {
     Inited = 0,
-    Witgening = 1,
-    Witgened = 2,
-    Proving = 3,
-    Proved = 4,
+    Proving = 1,
+    Proved = 2,
 }
 #[doc = r" Generated client implementations."]
 pub mod rollup_state_client {
