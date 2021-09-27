@@ -1,0 +1,14 @@
+version: '3.4'
+services:
+  swagger-ui:
+    ports:
+      - 8080:8080
+    image: swaggerapi/swagger-ui
+    restart: always
+    volumes:
+      - ../proto:/usr/share/nginx/html/api
+    environment:
+      URLS: "[
+        { url: \"./api/exchange/matchengine.swagger.json\", name: \"Exchange\" },
+        { url: \"./api/rollup/rollup.swagger.json\", name: \"Rollup\" }
+      ]"

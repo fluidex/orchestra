@@ -1,0 +1,268 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "proto/rollup/rollup.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "RollupState"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/rollupapi/l2_block/{blockId}": {
+      "get": {
+        "operationId": "RollupState_L2BlockQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/rollup_stateL2BlockQueryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "blockId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "RollupState"
+        ]
+      }
+    },
+    "/rollupapi/l2_blocks": {
+      "get": {
+        "operationId": "RollupState_L2BlocksQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/rollup_stateL2BlocksQueryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "RollupState"
+        ]
+      }
+    },
+    "/rollupapi/token_balance/{accountId}/{tokenId}": {
+      "post": {
+        "operationId": "RollupState_TokenBalanceQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/rollup_stateTokenBalanceQueryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "tokenId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tokenAddress": {
+                  "type": "string"
+                },
+                "tokenName": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "RollupState"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "L2BlockQueryResponseTx": {
+      "type": "object",
+      "properties": {
+        "detail": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "TODO: Adds `l1_tx_hash: string`."
+    },
+    "L2BlocksQueryResponseBlockSummary": {
+      "type": "object",
+      "properties": {
+        "blockHeight": {
+          "type": "string",
+          "format": "int64"
+        },
+        "merkleRoot": {
+          "type": "string"
+        },
+        "blockTime": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rollup_stateL2BlockQueryResponse": {
+      "type": "object",
+      "properties": {
+        "newRoot": {
+          "type": "string"
+        },
+        "createdTime": {
+          "type": "number",
+          "format": "double"
+        },
+        "txNum": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "realTxNum": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "status": {
+          "$ref": "#/definitions/rollup_stateTaskStatus"
+        },
+        "txs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/L2BlockQueryResponseTx"
+          }
+        }
+      }
+    },
+    "rollup_stateL2BlocksQueryResponse": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "string",
+          "format": "int64"
+        },
+        "blocks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/L2BlocksQueryResponseBlockSummary"
+          }
+        }
+      }
+    },
+    "rollup_stateTaskStatus": {
+      "type": "string",
+      "enum": [
+        "INITED",
+        "PROVING",
+        "PROVED"
+      ],
+      "default": "INITED"
+    },
+    "rollup_stateTokenBalanceQueryResponse": {
+      "type": "object",
+      "properties": {
+        "balance": {
+          "type": "string"
+        },
+        "balanceRaw": {
+          "type": "string"
+        },
+        "precision": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
