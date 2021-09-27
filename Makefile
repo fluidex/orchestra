@@ -41,12 +41,11 @@ lintrs:
 
 # Start docker-compose for fluidex-backend
 runbe: all stopbe
-	docker-compose --file docker/docker-compose.yaml --project-name fluidex-backend up --force-recreate
+	docker-compose --file docker/docker-compose.yaml --project-name fluidex-backend up --force-recreate # --detach
 
 # Start docker-compose for Swagger UI
 runswui: all stopswui
-	docker-compose --file docker/docker-compose-swagger-ui.yaml --project-name fluidex-swagger-ui down --remove-orphans
-	docker-compose --file docker/docker-compose-swagger-ui.yaml --project-name fluidex-swagger-ui up --force-recreate
+	docker-compose --file docker/docker-compose-swagger-ui.yaml --project-name fluidex-swagger-ui up --force-recreate # --detach
 
 # Stop docker-compose for fluidex-backend
 stopbe:
