@@ -2,7 +2,7 @@ version: '3.4'
 services:
   swagger-ui:
     ports:
-      - 8080:8080
+      - 8760:8080
     image: swaggerapi/swagger-ui
     restart: always
     volumes:

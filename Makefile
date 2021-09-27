@@ -45,7 +45,7 @@ runbe: all stopbe
 
 # Start docker-compose for Swagger UI
 runswui: all stopswui
-	docker-compose --file docker/docker-compose-swagger-ui.yaml --project-name fluidex-swagger-ui up --force-recreate # --detach
+	docker-compose --file docker/docker-compose-swagger-ui.yaml --project-name fluidex-swagger-ui up --force-recreate --detach
 
 # Stop docker-compose for fluidex-backend
 stopbe:
