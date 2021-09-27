@@ -12,6 +12,7 @@ It contains major features as below (for now):
 
 * golang (for Swagger JSON generation)
 * rust
+* protobuf (update for latest to support keyword `optional`)
 
 ## Make Commands
 
