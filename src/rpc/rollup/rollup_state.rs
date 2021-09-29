@@ -39,7 +39,7 @@ pub struct L2BlockQueryResponse {
     pub tx_num: u64,
     #[prost(uint64, tag = "4")]
     pub real_tx_num: u64,
-    #[prost(enumeration = "TaskStatus", tag = "5")]
+    #[prost(enumeration = "BlockStatus", tag = "5")]
     pub status: i32,
     #[prost(message, repeated, tag = "6")]
     pub txs: ::prost::alloc::vec::Vec<l2_block_query_response::Tx>,
@@ -88,10 +88,10 @@ pub struct TokenBalanceQueryResponse {
     ::prost::Enumeration,
 )]
 #[repr(i32)]
-pub enum TaskStatus {
-    Inited = 0,
-    Proving = 1,
-    Proved = 2,
+pub enum BlockStatus {
+    Uncommited = 0,
+    Commited = 1,
+    Verified = 2,
 }
 #[doc = r" Generated client implementations."]
 pub mod rollup_state_client {

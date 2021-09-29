@@ -178,6 +178,15 @@
       },
       "additionalProperties": {}
     },
+    "rollup_stateBlockStatus": {
+      "type": "string",
+      "enum": [
+        "UNCOMMITED",
+        "COMMITED",
+        "VERIFIED"
+      ],
+      "default": "UNCOMMITED"
+    },
     "rollup_stateL2BlockQueryResponse": {
       "type": "object",
       "properties": {
@@ -197,7 +206,7 @@
           "format": "uint64"
         },
         "status": {
-          "$ref": "#/definitions/rollup_stateTaskStatus"
+          "$ref": "#/definitions/rollup_stateBlockStatus"
         },
         "txs": {
           "type": "array",
@@ -221,15 +230,6 @@
           }
         }
       }
-    },
-    "rollup_stateTaskStatus": {
-      "type": "string",
-      "enum": [
-        "INITED",
-        "PROVING",
-        "PROVED"
-      ],
-      "default": "INITED"
     },
     "rollup_stateTokenBalanceQueryResponse": {
       "type": "object",
