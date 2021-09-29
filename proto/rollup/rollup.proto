@@ -49,7 +49,7 @@ message L2BlockQueryResponse {
   double created_time = 2;
   uint64 tx_num = 3;
   uint64 real_tx_num = 4;
-  TaskStatus status = 5;
+  BlockStatus status = 5;
   repeated Tx txs = 6;
   // TODO: Adds `l1_tx_hash: string`.
   message Tx {
@@ -70,8 +70,8 @@ message TokenBalanceQueryResponse {
   uint32 precision = 3;
 }
 
-enum TaskStatus {
-  INITED = 0;
-  PROVING = 1;
-  PROVED = 2;
+enum BlockStatus {
+  UNCOMMITED = 0;
+  COMMITED = 1;
+  VERIFIED = 2;
 }
