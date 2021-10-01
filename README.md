@@ -1,11 +1,11 @@
 # Orchestra
 
-Orchestra is a project of one `docker-compose` for full [fluiex-backend](https://github.com/fluidex/fluidex-backend).
+Orchestra is a project of one `docker-compose` for full [fluidex-backend](https://github.com/fluidex/fluidex-backend).
 
 It contains major features as below (for now):
 
 * RPC protocol and generation for [dingir-exchange](https://github.com/fluidex/dingir-exchange) and [rollup-state-manager](https://github.com/fluidex/rollup-state-manager)
-* `docker-compose` for full [fluiex-backend](https://github.com/fluidex/fluidex-backend)
+* `docker-compose` for full [fluidex-backend](https://github.com/fluidex/fluidex-backend)
 * `docker-compose` for Swagger UI
 
 ## Prerequisite
@@ -23,9 +23,9 @@ List the major make commands as below. Reference the comments in `Makefile` for 
 User could run `make` directly for RPC generation if any protocol file `*.proto` is updated.
 The RPC Rust code should be updated in folder `src/rpc`.
 
-### Run `docker-compose` for full [fluiex-backend](https://github.com/fluidex/fluidex-backend)
+### Run `docker-compose` for full [fluidex-backend](https://github.com/fluidex/fluidex-backend)
 
-User could run `make runbe` to start `docker-compose` for full [fluiex-backend](https://github.com/fluidex/fluidex-backend).
+User could run `make runbe` to start `docker-compose` for full [fluidex-backend](https://github.com/fluidex/fluidex-backend).
 And `make stopbe` for stop.
 
 ### Run `docker-compose` for Swagger UI
