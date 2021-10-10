@@ -8,20 +8,20 @@ import "google/api/annotations.proto";
 service RollupState {
   rpc L2BlocksQuery(L2BlocksQueryRequest) returns (L2BlocksQueryResponse) {
     option (google.api.http) = {
-      get : "/rollupapi/l2_blocks"
+      get : "/explorer/api/l2_blocks"
     };
   }
 
   rpc L2BlockQuery(L2BlockQueryRequest) returns (L2BlockQueryResponse) {
     option (google.api.http) = {
-      get : "/rollupapi/l2_block/{block_id}"
+      get : "/explorer/api/l2_block/{block_id}"
     };
   }
 
   rpc TokenBalanceQuery(TokenBalanceQueryRequest)
       returns (TokenBalanceQueryResponse) {
     option (google.api.http) = {
-      post : "/rollupapi/token_balance/{account_id}/{token_id}"
+      post : "/explorer/api/token_balance/{account_id}/{token_id}"
       body : "*"
     };
   }
