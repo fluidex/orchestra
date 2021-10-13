@@ -213,6 +213,12 @@
           "items": {
             "$ref": "#/definitions/L2BlockQueryResponseTx"
           }
+        },
+        "txsType": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/rollup_stateTxType"
+          }
         }
       }
     },
@@ -245,6 +251,18 @@
           "format": "int64"
         }
       }
+    },
+    "rollup_stateTxType": {
+      "type": "string",
+      "enum": [
+        "NOP",
+        "DEPOSIT",
+        "TRANSFER",
+        "WITHDRAW",
+        "PLACE_ORDER",
+        "SPOT_TRADE"
+      ],
+      "default": "NOP"
     },
     "rpcStatus": {
       "type": "object",
