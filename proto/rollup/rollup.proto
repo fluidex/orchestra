@@ -51,6 +51,7 @@ message L2BlockQueryResponse {
   uint64 real_tx_num = 4;
   BlockStatus status = 5;
   repeated Tx txs = 6;
+  repeated TxType txs_type = 7;
   // TODO: Adds `l1_tx_hash: string`.
   message Tx {
     repeated string detail = 1; // TODO: Fixes to decoding TX in issue #132.
@@ -74,4 +75,13 @@ enum BlockStatus {
   UNCOMMITED = 0;
   COMMITED = 1;
   VERIFIED = 2;
+}
+
+enum TxType {
+  NOP = 0;
+  DEPOSIT = 1;
+  TRANSFER = 2;
+  WITHDRAW = 3;
+  PLACE_ORDER = 4;
+  SPOT_TRADE = 5;
 }

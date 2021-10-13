@@ -43,6 +43,8 @@ pub struct L2BlockQueryResponse {
     pub status: i32,
     #[prost(message, repeated, tag = "6")]
     pub txs: ::prost::alloc::vec::Vec<l2_block_query_response::Tx>,
+    #[prost(enumeration = "TxType", repeated, tag = "7")]
+    pub txs_type: ::prost::alloc::vec::Vec<i32>,
 }
 /// Nested message and enum types in `L2BlockQueryResponse`.
 pub mod l2_block_query_response {
@@ -92,6 +94,28 @@ pub enum BlockStatus {
     Uncommited = 0,
     Commited = 1,
     Verified = 2,
+}
+#[derive(
+    serde::Serialize,
+    serde::Deserialize,
+    Clone,
+    Copy,
+    Debug,
+    PartialEq,
+    Eq,
+    Hash,
+    PartialOrd,
+    Ord,
+    ::prost::Enumeration,
+)]
+#[repr(i32)]
+pub enum TxType {
+    Nop = 0,
+    Deposit = 1,
+    Transfer = 2,
+    Withdraw = 3,
+    PlaceOrder = 4,
+    SpotTrade = 5,
 }
 #[doc = r" Generated client implementations."]
 pub mod rollup_state_client {
