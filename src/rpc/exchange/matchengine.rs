@@ -20,6 +20,11 @@ pub struct UserInfo {
     pub log_metadata: ::core::option::Option<EthLogMetadata>,
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+pub struct UserQueryRequest {
+    #[prost(string, tag = "1")]
+    pub l2_pubkey: ::prost::alloc::string::String,
+}
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct BalanceQueryRequest {
     #[prost(uint32, tag = "1")]
     pub user_id: u32,
@@ -542,6 +547,20 @@ pub mod matchengine_client {
                 http::uri::PathAndQuery::from_static("/matchengine.Matchengine/RegisterUser");
             self.inner.unary(request.into_request(), path, codec).await
         }
+        pub async fn user_query(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UserQueryRequest>,
+        ) -> Result<tonic::Response<super::UserInfo>, tonic::Status> {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static("/matchengine.Matchengine/UserQuery");
+            self.inner.unary(request.into_request(), path, codec).await
+        }
         pub async fn balance_query(
             &mut self,
             request: impl tonic::IntoRequest<super::BalanceQueryRequest>,
@@ -803,6 +822,10 @@ pub mod matchengine_server {
             &self,
             request: tonic::Request<super::UserInfo>,
         ) -> Result<tonic::Response<super::UserInfo>, tonic::Status>;
+        async fn user_query(
+            &self,
+            request: tonic::Request<super::UserQueryRequest>,
+        ) -> Result<tonic::Response<super::UserInfo>, tonic::Status>;
         async fn balance_query(
             &self,
             request: tonic::Request<super::BalanceQueryRequest>,
@@ -935,6 +958,37 @@ pub mod matchengine_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = RegisterUserSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec).apply_compression_config(
+                            accept_compression_encodings,
+                            send_compression_encodings,
+                        );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/matchengine.Matchengine/UserQuery" => {
+                    #[allow(non_camel_case_types)]
+                    struct UserQuerySvc<T: Matchengine>(pub Arc<T>);
+                    impl<T: Matchengine> tonic::server::UnaryService<super::UserQueryRequest> for UserQuerySvc<T> {
+                        type Response = super::UserInfo;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UserQueryRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).user_query(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = UserQuerySvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec).apply_compression_config(
                             accept_compression_encodings,

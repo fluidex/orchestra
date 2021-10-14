@@ -470,6 +470,36 @@
           "Matchengine"
         ]
       }
+    },
+    "/api/users/{l2Pubkey}": {
+      "get": {
+        "operationId": "Matchengine_UserQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/matchengineUserInfo"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "l2Pubkey",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Matchengine"
+        ]
+      }
     }
   },
   "definitions": {
