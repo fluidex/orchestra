@@ -23,4 +23,7 @@ fn build_rollup_grpc() {
 fn main() {
     build_exchange_grpc();
     build_rollup_grpc();
+
+    // Prevent rebuild if no proto files are changed.
+    println!("cargo:rerun-if-changed=proto");
 }
