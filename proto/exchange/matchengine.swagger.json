@@ -470,6 +470,37 @@
           "Matchengine"
         ]
       }
+    },
+    "/api/users/{userId}": {
+      "get": {
+        "operationId": "Matchengine_UserQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/matchengineUserInfo"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Matchengine"
+        ]
+      }
     }
   },
   "definitions": {
