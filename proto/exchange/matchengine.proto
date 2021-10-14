@@ -14,7 +14,7 @@ service Matchengine {
   }
   rpc UserQuery(UserQueryRequest) returns (UserInfo) {
     option (google.api.http) = {
-      get : "/api/users/{user_id}"
+      get : "/api/users/{l2_pubkey}"
     };
   }
   rpc BalanceQuery(BalanceQueryRequest) returns (BalanceQueryResponse) {
@@ -108,7 +108,7 @@ message UserInfo {
   optional EthLogMetadata log_metadata = 4;
 }
 
-message UserQueryRequest { uint32 user_id = 1; }
+message UserQueryRequest { string l2_pubkey = 1; }
 
 message BalanceQueryRequest {
   uint32 user_id = 1;

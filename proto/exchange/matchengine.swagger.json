@@ -471,7 +471,7 @@
         ]
       }
     },
-    "/api/users/{userId}": {
+    "/api/users/{l2Pubkey}": {
       "get": {
         "operationId": "Matchengine_UserQuery",
         "responses": {
@@ -490,11 +490,10 @@
         },
         "parameters": [
           {
-            "name": "userId",
+            "name": "l2Pubkey",
             "in": "path",
             "required": true,
-            "type": "integer",
-            "format": "int64"
+            "type": "string"
           }
         ],
         "tags": [

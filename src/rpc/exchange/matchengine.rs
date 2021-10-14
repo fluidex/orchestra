@@ -21,8 +21,8 @@ pub struct UserInfo {
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct UserQueryRequest {
-    #[prost(uint32, tag = "1")]
-    pub user_id: u32,
+    #[prost(string, tag = "1")]
+    pub l2_pubkey: ::prost::alloc::string::String,
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct BalanceQueryRequest {
