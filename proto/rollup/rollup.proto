@@ -50,11 +50,18 @@ message L2BlockQueryResponse {
   uint64 tx_num = 3;
   uint64 real_tx_num = 4;
   BlockStatus status = 5;
-  repeated Tx txs = 6;
-  repeated TxType txs_type = 7;
+  repeated EncodedTx txs = 6;
+  repeated DecodedTx decoded_txs = 7;
+  repeated TxType txs_type = 8;
   // TODO: Adds `l1_tx_hash: string`.
-  message Tx {
+  message EncodedTx {
     repeated string detail = 1; // TODO: Fixes to decoding TX in issue #132.
+  }
+  message DecodedTx {
+    optional DepositTx deposit_tx = 1;
+    optional WithdrawTx withdraw_tx = 2;
+    optional TransferTx transfer_tx = 3;
+    optional SpotTradeTx spot_trade_tx = 4;
   }
 }
 
@@ -69,6 +76,35 @@ message TokenBalanceQueryResponse {
   string balance = 1;
   string balance_raw = 2;
   uint32 precision = 3;
+}
+
+message DepositTx {
+  uint32 account_id = 1;
+  uint32 token_id = 2;
+  string amount = 3;
+}
+
+message WithdrawTx {
+  uint32 account_id = 1;
+  uint32 token_id = 2;
+  string amount = 3;
+  string old_balance = 4;
+}
+
+message TransferTx {
+  uint32 from = 1;
+  uint32 to = 2;
+  uint32 token_id = 3;
+  string amount = 4;
+}
+
+message SpotTradeTx {
+  uint32 order1_account_id = 1;
+  uint32 order2_account_id = 2;
+  uint32 token_id_1to2 = 3;
+  uint32 token_id_2to1 = 4;
+  string amount_1to2 = 5;
+  string amount_2to1 = 6;
 }
 
 enum BlockStatus {

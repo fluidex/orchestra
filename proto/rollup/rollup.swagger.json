@@ -141,7 +141,24 @@
     }
   },
   "definitions": {
-    "L2BlockQueryResponseTx": {
+    "L2BlockQueryResponseDecodedTx": {
+      "type": "object",
+      "properties": {
+        "depositTx": {
+          "$ref": "#/definitions/rollup_stateDepositTx"
+        },
+        "withdrawTx": {
+          "$ref": "#/definitions/rollup_stateWithdrawTx"
+        },
+        "transferTx": {
+          "$ref": "#/definitions/rollup_stateTransferTx"
+        },
+        "spotTradeTx": {
+          "$ref": "#/definitions/rollup_stateSpotTradeTx"
+        }
+      }
+    },
+    "L2BlockQueryResponseEncodedTx": {
       "type": "object",
       "properties": {
         "detail": {
@@ -187,6 +204,22 @@
       ],
       "default": "UNCOMMITED"
     },
+    "rollup_stateDepositTx": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tokenId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "amount": {
+          "type": "string"
+        }
+      }
+    },
     "rollup_stateL2BlockQueryResponse": {
       "type": "object",
       "properties": {
@@ -211,7 +244,13 @@
         "txs": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/L2BlockQueryResponseTx"
+            "$ref": "#/definitions/L2BlockQueryResponseEncodedTx"
+          }
+        },
+        "decodedTxs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/L2BlockQueryResponseDecodedTx"
           }
         },
         "txsType": {
@@ -237,6 +276,33 @@
         }
       }
     },
+    "rollup_stateSpotTradeTx": {
+      "type": "object",
+      "properties": {
+        "order1AccountId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "order2AccountId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tokenId1to2": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tokenId2to1": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "amount1to2": {
+          "type": "string"
+        },
+        "amount2to1": {
+          "type": "string"
+        }
+      }
+    },
     "rollup_stateTokenBalanceQueryResponse": {
       "type": "object",
       "properties": {
@@ -252,6 +318,26 @@
         }
       }
     },
+    "rollup_stateTransferTx": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tokenId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "amount": {
+          "type": "string"
+        }
+      }
+    },
     "rollup_stateTxType": {
       "type": "string",
       "enum": [
@@ -263,6 +349,25 @@
         "SPOT_TRADE"
       ],
       "default": "NOP"
+    },
+    "rollup_stateWithdrawTx": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tokenId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "amount": {
+          "type": "string"
+        },
+        "oldBalance": {
+          "type": "string"
+        }
+      }
     },
     "rpcStatus": {
       "type": "object",

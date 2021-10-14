@@ -42,18 +42,31 @@ pub struct L2BlockQueryResponse {
     #[prost(enumeration = "BlockStatus", tag = "5")]
     pub status: i32,
     #[prost(message, repeated, tag = "6")]
-    pub txs: ::prost::alloc::vec::Vec<l2_block_query_response::Tx>,
-    #[prost(enumeration = "TxType", repeated, tag = "7")]
+    pub txs: ::prost::alloc::vec::Vec<l2_block_query_response::EncodedTx>,
+    #[prost(message, repeated, tag = "7")]
+    pub decoded_txs: ::prost::alloc::vec::Vec<l2_block_query_response::DecodedTx>,
+    #[prost(enumeration = "TxType", repeated, tag = "8")]
     pub txs_type: ::prost::alloc::vec::Vec<i32>,
 }
 /// Nested message and enum types in `L2BlockQueryResponse`.
 pub mod l2_block_query_response {
     /// TODO: Adds `l1_tx_hash: string`.
     #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
-    pub struct Tx {
+    pub struct EncodedTx {
         /// TODO: Fixes to decoding TX in issue #132.
         #[prost(string, repeated, tag = "1")]
         pub detail: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    }
+    #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+    pub struct DecodedTx {
+        #[prost(message, optional, tag = "1")]
+        pub deposit_tx: ::core::option::Option<super::DepositTx>,
+        #[prost(message, optional, tag = "2")]
+        pub withdraw_tx: ::core::option::Option<super::WithdrawTx>,
+        #[prost(message, optional, tag = "3")]
+        pub transfer_tx: ::core::option::Option<super::TransferTx>,
+        #[prost(message, optional, tag = "4")]
+        pub spot_trade_tx: ::core::option::Option<super::SpotTradeTx>,
     }
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
@@ -75,6 +88,52 @@ pub struct TokenBalanceQueryResponse {
     pub balance_raw: ::prost::alloc::string::String,
     #[prost(uint32, tag = "3")]
     pub precision: u32,
+}
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+pub struct DepositTx {
+    #[prost(uint32, tag = "1")]
+    pub account_id: u32,
+    #[prost(uint32, tag = "2")]
+    pub token_id: u32,
+    #[prost(string, tag = "3")]
+    pub amount: ::prost::alloc::string::String,
+}
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+pub struct WithdrawTx {
+    #[prost(uint32, tag = "1")]
+    pub account_id: u32,
+    #[prost(uint32, tag = "2")]
+    pub token_id: u32,
+    #[prost(string, tag = "3")]
+    pub amount: ::prost::alloc::string::String,
+    #[prost(string, tag = "4")]
+    pub old_balance: ::prost::alloc::string::String,
+}
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+pub struct TransferTx {
+    #[prost(uint32, tag = "1")]
+    pub from: u32,
+    #[prost(uint32, tag = "2")]
+    pub to: u32,
+    #[prost(uint32, tag = "3")]
+    pub token_id: u32,
+    #[prost(string, tag = "4")]
+    pub amount: ::prost::alloc::string::String,
+}
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+pub struct SpotTradeTx {
+    #[prost(uint32, tag = "1")]
+    pub order1_account_id: u32,
+    #[prost(uint32, tag = "2")]
+    pub order2_account_id: u32,
+    #[prost(uint32, tag = "3")]
+    pub token_id_1to2: u32,
+    #[prost(uint32, tag = "4")]
+    pub token_id_2to1: u32,
+    #[prost(string, tag = "5")]
+    pub amount_1to2: ::prost::alloc::string::String,
+    #[prost(string, tag = "6")]
+    pub amount_2to1: ::prost::alloc::string::String,
 }
 #[derive(
     serde::Serialize,
