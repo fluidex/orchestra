@@ -45,15 +45,15 @@ message L2BlocksQueryResponse {
 message L2BlockQueryRequest { int64 block_id = 1; }
 
 message L2BlockQueryResponse {
-  string new_root = 1;
-  double created_time = 2;
-  uint64 tx_num = 3;
-  uint64 real_tx_num = 4;
-  BlockStatus status = 5;
-  repeated EncodedTx txs = 6;
-  repeated DecodedTx decoded_txs = 7;
-  repeated TxType txs_type = 8;
-  // TODO: Adds `l1_tx_hash: string`.
+  uint64 tx_num = 1;
+  uint64 real_tx_num = 2;
+  double created_time = 3;
+  BlockStatus status = 4;
+  string new_root = 5;
+  string l1_tx_hash = 6;
+  repeated EncodedTx txs = 7;
+  repeated DecodedTx decoded_txs = 8;
+  repeated TxType txs_type = 9;
   message EncodedTx {
     repeated string detail = 1; // TODO: Fixes to decoding TX in issue #132.
   }

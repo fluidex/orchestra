@@ -31,26 +31,27 @@ pub struct L2BlockQueryRequest {
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct L2BlockQueryResponse {
-    #[prost(string, tag = "1")]
-    pub new_root: ::prost::alloc::string::String,
-    #[prost(double, tag = "2")]
-    pub created_time: f64,
-    #[prost(uint64, tag = "3")]
+    #[prost(uint64, tag = "1")]
     pub tx_num: u64,
-    #[prost(uint64, tag = "4")]
+    #[prost(uint64, tag = "2")]
     pub real_tx_num: u64,
-    #[prost(enumeration = "BlockStatus", tag = "5")]
+    #[prost(double, tag = "3")]
+    pub created_time: f64,
+    #[prost(enumeration = "BlockStatus", tag = "4")]
     pub status: i32,
-    #[prost(message, repeated, tag = "6")]
-    pub txs: ::prost::alloc::vec::Vec<l2_block_query_response::EncodedTx>,
+    #[prost(string, tag = "5")]
+    pub new_root: ::prost::alloc::string::String,
+    #[prost(string, tag = "6")]
+    pub l1_tx_hash: ::prost::alloc::string::String,
     #[prost(message, repeated, tag = "7")]
+    pub txs: ::prost::alloc::vec::Vec<l2_block_query_response::EncodedTx>,
+    #[prost(message, repeated, tag = "8")]
     pub decoded_txs: ::prost::alloc::vec::Vec<l2_block_query_response::DecodedTx>,
-    #[prost(enumeration = "TxType", repeated, tag = "8")]
+    #[prost(enumeration = "TxType", repeated, tag = "9")]
     pub txs_type: ::prost::alloc::vec::Vec<i32>,
 }
 /// Nested message and enum types in `L2BlockQueryResponse`.
 pub mod l2_block_query_response {
-    /// TODO: Adds `l1_tx_hash: string`.
     #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
     pub struct EncodedTx {
         /// TODO: Fixes to decoding TX in issue #132.

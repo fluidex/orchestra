@@ -167,8 +167,7 @@
             "type": "string"
           }
         }
-      },
-      "description": "TODO: Adds `l1_tx_hash: string`."
+      }
     },
     "L2BlocksQueryResponseBlockSummary": {
       "type": "object",
@@ -223,13 +222,6 @@
     "rollup_stateL2BlockQueryResponse": {
       "type": "object",
       "properties": {
-        "newRoot": {
-          "type": "string"
-        },
-        "createdTime": {
-          "type": "number",
-          "format": "double"
-        },
         "txNum": {
           "type": "string",
           "format": "uint64"
@@ -238,8 +230,18 @@
           "type": "string",
           "format": "uint64"
         },
+        "createdTime": {
+          "type": "number",
+          "format": "double"
+        },
         "status": {
           "$ref": "#/definitions/rollup_stateBlockStatus"
+        },
+        "newRoot": {
+          "type": "string"
+        },
+        "l1TxHash": {
+          "type": "string"
         },
         "txs": {
           "type": "array",
