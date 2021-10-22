@@ -20,7 +20,7 @@ static_resources:
             - name: local_service
               domains: ["*"]
               routes:
-              - match: {prefix: "/exchange/api/panel"}
+              - match: {prefix: "/api/exchange/panel"}
                 route:
                   cluster: rust_http
                   timeout: 60s

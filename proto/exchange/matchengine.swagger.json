@@ -16,7 +16,7 @@
     "application/json"
   ],
   "paths": {
-    "/exchange/api/action/assets": {
+    "/api/exchange/action/assets": {
       "get": {
         "operationId": "Matchengine_AssetList",
         "responses": {
@@ -38,7 +38,7 @@
         ]
       }
     },
-    "/exchange/api/action/balances/{userId}": {
+    "/api/exchange/action/balances/{userId}": {
       "get": {
         "operationId": "Matchengine_BalanceQuery",
         "responses": {
@@ -79,7 +79,7 @@
         ]
       }
     },
-    "/exchange/api/action/batchorders/{market}": {
+    "/api/exchange/action/batchorders/{market}": {
       "post": {
         "operationId": "Matchengine_BatchOrderPut",
         "responses": {
@@ -128,7 +128,7 @@
         ]
       }
     },
-    "/exchange/api/action/cancelorder/{market}/{userId}/{orderId}": {
+    "/api/exchange/action/cancelorder/{market}/{userId}/{orderId}": {
       "post": {
         "operationId": "Matchengine_OrderCancel",
         "responses": {
@@ -180,7 +180,7 @@
         ]
       }
     },
-    "/exchange/api/action/cancelorders/{market}/{userId}": {
+    "/api/exchange/action/cancelorders/{market}/{userId}": {
       "post": {
         "operationId": "Matchengine_OrderCancelAll",
         "responses": {
@@ -225,7 +225,7 @@
         ]
       }
     },
-    "/exchange/api/action/depth/{market}/{limit}": {
+    "/api/exchange/action/depth/{market}/{limit}": {
       "get": {
         "summary": "rpc OrderBook(OrderBookRequest) returns (OrderBookResponse) {}",
         "operationId": "Matchengine_OrderBookDepth",
@@ -269,7 +269,7 @@
         ]
       }
     },
-    "/exchange/api/action/markets": {
+    "/api/exchange/action/markets": {
       "get": {
         "operationId": "Matchengine_MarketList",
         "responses": {
@@ -291,7 +291,7 @@
         ]
       }
     },
-    "/exchange/api/action/order": {
+    "/api/exchange/action/order": {
       "post": {
         "summary": "rpc AssetSummary(AssetSummaryRequest) returns (AssetSummaryResponse) {}",
         "operationId": "Matchengine_OrderPut",
@@ -324,7 +324,7 @@
         ]
       }
     },
-    "/exchange/api/action/orders/{market}/{userId}": {
+    "/api/exchange/action/orders/{market}/{userId}": {
       "get": {
         "operationId": "Matchengine_OrderQuery",
         "responses": {
@@ -375,7 +375,7 @@
         ]
       }
     },
-    "/exchange/api/action/registeruser": {
+    "/api/exchange/action/registeruser": {
       "post": {
         "operationId": "Matchengine_RegisterUser",
         "responses": {
@@ -407,7 +407,7 @@
         ]
       }
     },
-    "/exchange/api/action/transfer": {
+    "/api/exchange/action/transfer": {
       "post": {
         "operationId": "Matchengine_Transfer",
         "responses": {
@@ -439,7 +439,7 @@
         ]
       }
     },
-    "/exchange/api/action/updatebalance": {
+    "/api/exchange/action/updatebalance": {
       "post": {
         "operationId": "Matchengine_BalanceUpdate",
         "responses": {
