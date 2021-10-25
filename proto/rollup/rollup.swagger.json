@@ -16,7 +16,7 @@
     "application/json"
   ],
   "paths": {
-    "/rollupapi/l2_block/{blockId}": {
+    "/api/explorer/l2_block/{blockId}": {
       "get": {
         "operationId": "RollupState_L2BlockQuery",
         "responses": {
@@ -47,7 +47,7 @@
         ]
       }
     },
-    "/rollupapi/l2_blocks": {
+    "/api/explorer/l2_blocks": {
       "get": {
         "operationId": "RollupState_L2BlocksQuery",
         "responses": {
@@ -85,7 +85,7 @@
         ]
       }
     },
-    "/rollupapi/token_balance/{accountId}/{tokenId}": {
+    "/api/explorer/token_balance/{accountId}/{tokenId}": {
       "post": {
         "operationId": "RollupState_TokenBalanceQuery",
         "responses": {
