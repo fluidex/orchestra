@@ -344,10 +344,16 @@
         "amount": {
           "type": "string"
         },
-        "oldBalance": {
+        "fromOldBalance": {
           "type": "string"
         },
-        "newBalance": {
+        "fromNewBalance": {
+          "type": "string"
+        },
+        "toOldBalance": {
+          "type": "string"
+        },
+        "toNewBalance": {
           "type": "string"
         }
       }
