@@ -99,8 +99,10 @@ message TransferTx {
   uint32 to = 2;
   uint32 token_id = 3;
   string amount = 4;
-  string old_balance = 5;
-  string new_balance = 6;
+  string from_old_balance = 5;
+  string from_new_balance = 6;
+  string to_old_balance = 7;
+  string to_new_balance = 8;
 }
 
 message SpotTradeTx {
