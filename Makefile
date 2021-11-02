@@ -1,5 +1,5 @@
 # Default make command
-all: genpb gensw buildrs fmt lint
+build: genpb gensw buildrs fmt lint
 
 # Build Rust code
 buildrs:
@@ -40,11 +40,11 @@ lintrs:
 	cargo clippy -- -D warnings
 
 # Start docker-compose for fluidex-backend
-runbe: all stopbe
+runbe: stopbe
 	docker-compose --file docker/docker-compose.yaml --project-name fluidex-backend up --force-recreate # --detach
 
 # Start docker-compose for Swagger UI
-runswui: all stopswui
+runswui: stopswui
 	docker-compose --file docker/docker-compose-swagger-ui.yaml --project-name fluidex-swagger-ui up --force-recreate # --detach
 
 # Stop docker-compose for fluidex-backend
