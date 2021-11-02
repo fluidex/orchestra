@@ -82,6 +82,8 @@ message DepositTx {
   uint32 account_id = 1;
   uint32 token_id = 2;
   string amount = 3;
+  string old_balance = 4;
+  string new_balance = 5;
 }
 
 message WithdrawTx {
@@ -89,6 +91,7 @@ message WithdrawTx {
   uint32 token_id = 2;
   string amount = 3;
   string old_balance = 4;
+  string new_balance = 5;
 }
 
 message TransferTx {
@@ -96,6 +99,8 @@ message TransferTx {
   uint32 to = 2;
   uint32 token_id = 3;
   string amount = 4;
+  string old_balance = 5;
+  string new_balance = 6;
 }
 
 message SpotTradeTx {

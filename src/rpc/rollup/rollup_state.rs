@@ -98,6 +98,10 @@ pub struct DepositTx {
     pub token_id: u32,
     #[prost(string, tag = "3")]
     pub amount: ::prost::alloc::string::String,
+    #[prost(string, tag = "4")]
+    pub old_balance: ::prost::alloc::string::String,
+    #[prost(string, tag = "5")]
+    pub new_balance: ::prost::alloc::string::String,
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct WithdrawTx {
@@ -109,6 +113,8 @@ pub struct WithdrawTx {
     pub amount: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
     pub old_balance: ::prost::alloc::string::String,
+    #[prost(string, tag = "5")]
+    pub new_balance: ::prost::alloc::string::String,
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct TransferTx {
@@ -120,6 +126,10 @@ pub struct TransferTx {
     pub token_id: u32,
     #[prost(string, tag = "4")]
     pub amount: ::prost::alloc::string::String,
+    #[prost(string, tag = "5")]
+    pub old_balance: ::prost::alloc::string::String,
+    #[prost(string, tag = "6")]
+    pub new_balance: ::prost::alloc::string::String,
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct SpotTradeTx {
