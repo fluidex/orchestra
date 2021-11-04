@@ -168,10 +168,10 @@ pub struct OrderInfo {
     pub order_type: i32,
     #[prost(uint32, tag = "5")]
     pub user_id: u32,
-    #[prost(double, tag = "6")]
-    pub create_time: f64,
-    #[prost(double, tag = "7")]
-    pub update_time: f64,
+    #[prost(int64, tag = "6")]
+    pub create_time: i64,
+    #[prost(int64, tag = "7")]
+    pub update_time: i64,
     #[prost(string, tag = "8")]
     pub price: ::prost::alloc::string::String,
     #[prost(string, tag = "9")]

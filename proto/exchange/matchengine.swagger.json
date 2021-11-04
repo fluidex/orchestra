@@ -749,12 +749,12 @@
           "format": "int64"
         },
         "createTime": {
-          "type": "number",
-          "format": "double"
+          "type": "string",
+          "format": "int64"
         },
         "updateTime": {
-          "type": "number",
-          "format": "double"
+          "type": "string",
+          "format": "int64"
         },
         "price": {
           "type": "string"
