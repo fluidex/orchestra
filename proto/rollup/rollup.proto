@@ -38,7 +38,7 @@ message L2BlocksQueryResponse {
   message BlockSummary {
     int64 block_height = 1;
     string merkle_root = 2;
-    double block_time = 3;
+    int64 block_time = 3;
   }
 }
 
@@ -47,7 +47,7 @@ message L2BlockQueryRequest { int64 block_id = 1; }
 message L2BlockQueryResponse {
   uint64 tx_num = 1;
   uint64 real_tx_num = 2;
-  double created_time = 3;
+  int64 created_time = 3;
   BlockStatus status = 4;
   string new_root = 5;
   string l1_tx_hash = 6;

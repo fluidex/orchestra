@@ -20,8 +20,8 @@ pub mod l2_blocks_query_response {
         pub block_height: i64,
         #[prost(string, tag = "2")]
         pub merkle_root: ::prost::alloc::string::String,
-        #[prost(double, tag = "3")]
-        pub block_time: f64,
+        #[prost(int64, tag = "3")]
+        pub block_time: i64,
     }
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
@@ -35,8 +35,8 @@ pub struct L2BlockQueryResponse {
     pub tx_num: u64,
     #[prost(uint64, tag = "2")]
     pub real_tx_num: u64,
-    #[prost(double, tag = "3")]
-    pub created_time: f64,
+    #[prost(int64, tag = "3")]
+    pub created_time: i64,
     #[prost(enumeration = "BlockStatus", tag = "4")]
     pub status: i32,
     #[prost(string, tag = "5")]

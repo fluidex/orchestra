@@ -180,8 +180,8 @@
           "type": "string"
         },
         "blockTime": {
-          "type": "number",
-          "format": "double"
+          "type": "string",
+          "format": "int64"
         }
       }
     },
@@ -237,8 +237,8 @@
           "format": "uint64"
         },
         "createdTime": {
-          "type": "number",
-          "format": "double"
+          "type": "string",
+          "format": "int64"
         },
         "status": {
           "$ref": "#/definitions/rollup_stateBlockStatus"

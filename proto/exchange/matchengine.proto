@@ -198,8 +198,8 @@ message OrderInfo {
   OrderSide order_side = 3;
   OrderType order_type = 4;
   uint32 user_id = 5;
-  double create_time = 6;
-  double update_time = 7;
+  int64 create_time = 6;
+  int64 update_time = 7;
   string price = 8;
   string amount = 9;
   string taker_fee = 10;
