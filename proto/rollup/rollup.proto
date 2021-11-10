@@ -21,8 +21,7 @@ service RollupState {
   rpc TokenBalanceQuery(TokenBalanceQueryRequest)
       returns (TokenBalanceQueryResponse) {
     option (google.api.http) = {
-      post : "/api/explorer/token_balance/{account_id}/{token_id}"
-      body : "*"
+      get : "/api/explorer/token_balance/{account_id}"
     };
   }
 }
@@ -67,9 +66,9 @@ message L2BlockQueryResponse {
 
 message TokenBalanceQueryRequest {
   uint32 account_id = 1;
-  uint32 token_id = 2;
-  string token_address = 3;
-  string token_name = 4;
+  optional uint32 token_id = 2;
+  optional string token_address = 3;
+  optional string token_name = 4;
 }
 
 message TokenBalanceQueryResponse {

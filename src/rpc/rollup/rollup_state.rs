@@ -74,12 +74,12 @@ pub mod l2_block_query_response {
 pub struct TokenBalanceQueryRequest {
     #[prost(uint32, tag = "1")]
     pub account_id: u32,
-    #[prost(uint32, tag = "2")]
-    pub token_id: u32,
-    #[prost(string, tag = "3")]
-    pub token_address: ::prost::alloc::string::String,
-    #[prost(string, tag = "4")]
-    pub token_name: ::prost::alloc::string::String,
+    #[prost(uint32, optional, tag = "2")]
+    pub token_id: ::core::option::Option<u32>,
+    #[prost(string, optional, tag = "3")]
+    pub token_address: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "4")]
+    pub token_name: ::core::option::Option<::prost::alloc::string::String>,
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct TokenBalanceQueryResponse {
