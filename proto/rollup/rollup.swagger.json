@@ -85,8 +85,8 @@
         ]
       }
     },
-    "/api/explorer/token_balance/{accountId}/{tokenId}": {
-      "post": {
+    "/api/explorer/token_balance/{accountId}": {
+      "get": {
         "operationId": "RollupState_TokenBalanceQuery",
         "responses": {
           "200": {
@@ -112,26 +112,22 @@
           },
           {
             "name": "tokenId",
-            "in": "path",
-            "required": true,
+            "in": "query",
+            "required": false,
             "type": "integer",
             "format": "int64"
           },
           {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "tokenAddress": {
-                  "type": "string"
-                },
-                "tokenName": {
-                  "type": "string"
-                }
-              }
-            }
+            "name": "tokenAddress",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "tokenName",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
