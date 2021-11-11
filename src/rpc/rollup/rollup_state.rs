@@ -149,6 +149,22 @@ pub struct SpotTradeTx {
     pub amount_1to2: ::prost::alloc::string::String,
     #[prost(string, tag = "6")]
     pub amount_2to1: ::prost::alloc::string::String,
+    #[prost(string, tag = "7")]
+    pub account1_token_buy_new_balance: ::prost::alloc::string::String,
+    #[prost(string, tag = "8")]
+    pub account1_token_buy_old_balance: ::prost::alloc::string::String,
+    #[prost(string, tag = "9")]
+    pub account1_token_sell_new_balance: ::prost::alloc::string::String,
+    #[prost(string, tag = "10")]
+    pub account1_token_sell_old_balance: ::prost::alloc::string::String,
+    #[prost(string, tag = "11")]
+    pub account2_token_buy_new_balance: ::prost::alloc::string::String,
+    #[prost(string, tag = "12")]
+    pub account2_token_buy_old_balance: ::prost::alloc::string::String,
+    #[prost(string, tag = "13")]
+    pub account2_token_sell_new_balance: ::prost::alloc::string::String,
+    #[prost(string, tag = "14")]
+    pub account2_token_sell_old_balance: ::prost::alloc::string::String,
 }
 #[derive(
     serde::Serialize,

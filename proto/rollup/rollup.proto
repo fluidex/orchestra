@@ -111,6 +111,14 @@ message SpotTradeTx {
   uint32 token_id_2to1 = 4;
   string amount_1to2 = 5;
   string amount_2to1 = 6;
+  string account1_token_buy_new_balance = 7;
+  string account1_token_buy_old_balance = 8;
+  string account1_token_sell_new_balance = 9;
+  string account1_token_sell_old_balance = 10;
+  string account2_token_buy_new_balance = 11;
+  string account2_token_buy_old_balance = 12;
+  string account2_token_sell_new_balance = 13;
+  string account2_token_sell_old_balance = 14;
 }
 
 enum BlockStatus {

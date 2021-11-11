@@ -304,6 +304,30 @@
         },
         "amount2to1": {
           "type": "string"
+        },
+        "account1TokenBuyNewBalance": {
+          "type": "string"
+        },
+        "account1TokenBuyOldBalance": {
+          "type": "string"
+        },
+        "account1TokenSellNewBalance": {
+          "type": "string"
+        },
+        "account1TokenSellOldBalance": {
+          "type": "string"
+        },
+        "account2TokenBuyNewBalance": {
+          "type": "string"
+        },
+        "account2TokenBuyOldBalance": {
+          "type": "string"
+        },
+        "account2TokenSellNewBalance": {
+          "type": "string"
+        },
+        "account2TokenSellOldBalance": {
+          "type": "string"
         }
       }
     },
