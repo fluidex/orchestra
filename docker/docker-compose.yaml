@@ -63,6 +63,4 @@ services:
       - ../proto/exchange/matchengine.pb:/tmp/envoy/matchengine.pb
       - ../proto/rollup/rollup.pb:/tmp/envoy/rollup.pb
     extra_hosts:
-    #work from 20.04 of docker engine, for earlier version, try 172.17.0.1 trick
-      - "host.docker.internal:host-gateway"
-
+      - "host.docker.internal:host-gateway" #work from 20.04 of docker engine, for earlier version, try 172.17.0.1 trick
