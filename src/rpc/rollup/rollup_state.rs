@@ -1,4 +1,24 @@
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+pub struct UserInfoQueryRequest {
+    #[prost(uint32, optional, tag = "1")]
+    pub user_id: ::core::option::Option<u32>,
+    #[prost(string, optional, tag = "2")]
+    pub l1_address: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "3")]
+    pub l2_pubkey: ::core::option::Option<::prost::alloc::string::String>,
+}
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+pub struct UserInfoQueryResponse {
+    #[prost(uint32, tag = "1")]
+    pub user_id: u32,
+    #[prost(uint32, tag = "2")]
+    pub nonce: u32,
+    #[prost(string, tag = "3")]
+    pub l1_address: ::prost::alloc::string::String,
+    #[prost(string, tag = "4")]
+    pub l2_pubkey: ::prost::alloc::string::String,
+}
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct L2BlocksQueryRequest {
     #[prost(int64, tag = "1")]
     pub offset: i64,
@@ -267,6 +287,21 @@ pub mod rollup_state_client {
             self.inner = self.inner.accept_gzip();
             self
         }
+        pub async fn user_info_query(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UserInfoQueryRequest>,
+        ) -> Result<tonic::Response<super::UserInfoQueryResponse>, tonic::Status> {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path =
+                http::uri::PathAndQuery::from_static("/rollup_state.RollupState/UserInfoQuery");
+            self.inner.unary(request.into_request(), path, codec).await
+        }
         pub async fn l2_blocks_query(
             &mut self,
             request: impl tonic::IntoRequest<super::L2BlocksQueryRequest>,
@@ -321,6 +356,10 @@ pub mod rollup_state_server {
     #[doc = "Generated trait containing gRPC methods that should be implemented for use with RollupStateServer."]
     #[async_trait]
     pub trait RollupState: Send + Sync + 'static {
+        async fn user_info_query(
+            &self,
+            request: tonic::Request<super::UserInfoQueryRequest>,
+        ) -> Result<tonic::Response<super::UserInfoQueryResponse>, tonic::Status>;
         async fn l2_blocks_query(
             &self,
             request: tonic::Request<super::L2BlocksQueryRequest>,
@@ -373,6 +412,39 @@ pub mod rollup_state_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
+                "/rollup_state.RollupState/UserInfoQuery" => {
+                    #[allow(non_camel_case_types)]
+                    struct UserInfoQuerySvc<T: RollupState>(pub Arc<T>);
+                    impl<T: RollupState> tonic::server::UnaryService<super::UserInfoQueryRequest>
+                        for UserInfoQuerySvc<T>
+                    {
+                        type Response = super::UserInfoQueryResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UserInfoQueryRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).user_info_query(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = UserInfoQuerySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec).apply_compression_config(
+                            accept_compression_encodings,
+                            send_compression_encodings,
+                        );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
                 "/rollup_state.RollupState/L2BlocksQuery" => {
                     #[allow(non_camel_case_types)]
                     struct L2BlocksQuerySvc<T: RollupState>(pub Arc<T>);
