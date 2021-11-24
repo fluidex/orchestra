@@ -134,6 +134,49 @@
           "RollupState"
         ]
       }
+    },
+    "/api/explorer/user_info": {
+      "get": {
+        "operationId": "RollupState_UserInfoQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/rollup_stateUserInfoQueryResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "l1Address",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "l2Pubkey",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "RollupState"
+        ]
+      }
     }
   },
   "definitions": {
@@ -389,6 +432,25 @@
         "SPOT_TRADE"
       ],
       "default": "NOP"
+    },
+    "rollup_stateUserInfoQueryResponse": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nonce": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "l1Address": {
+          "type": "string"
+        },
+        "l2Pubkey": {
+          "type": "string"
+        }
+      }
     },
     "rollup_stateWithdrawTx": {
       "type": "object",
