@@ -6,6 +6,12 @@ package rollup_state;
 import "google/api/annotations.proto";
 
 service RollupState {
+  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse) {
+    option (google.api.http) = {
+      post : "/api/explorer/register_user"
+      body : "*"
+    };
+  }
   rpc UserInfoQuery(UserInfoQueryRequest) returns (UserInfoQueryResponse) {
     option (google.api.http) = {
       get : "/api/explorer/user_info"
@@ -32,18 +38,20 @@ service RollupState {
   }
 }
 
+message RegisterUserRequest {
+  string l1_address = 2;
+  string l2_pubkey = 3;
+}
+
+message RegisterUserResponse { UserInfo user_info = 1; }
+
 message UserInfoQueryRequest {
   optional uint32 user_id = 1;
   optional string l1_address = 2;
   optional string l2_pubkey = 3;
 }
 
-message UserInfoQueryResponse {
-  uint32 user_id = 1;
-  uint32 nonce = 2;
-  string l1_address = 3;
-  string l2_pubkey = 4;
-}
+message UserInfoQueryResponse { UserInfo user_info = 1; }
 
 message L2BlocksQueryRequest {
   int64 offset = 1;
@@ -153,4 +161,11 @@ enum TxType {
   WITHDRAW = 3;
   PLACE_ORDER = 4;
   SPOT_TRADE = 5;
+}
+
+message UserInfo {
+  uint32 user_id = 1;
+  uint32 nonce = 2;
+  string l1_address = 3;
+  string l2_pubkey = 4;
 }
