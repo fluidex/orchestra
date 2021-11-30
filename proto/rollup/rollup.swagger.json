@@ -358,6 +358,10 @@
     "rollup_stateRegisterUserRequest": {
       "type": "object",
       "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        },
         "l1Address": {
           "type": "string"
         },

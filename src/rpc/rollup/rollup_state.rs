@@ -1,5 +1,7 @@
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct RegisterUserRequest {
+    #[prost(uint32, tag = "1")]
+    pub user_id: u32,
     #[prost(string, tag = "2")]
     pub l1_address: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]

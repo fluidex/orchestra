@@ -39,9 +39,9 @@ service RollupState {
 }
 
 message RegisterUserRequest {
-  // TODO: force require user_id
-  string l1_address = 1;
-  string l2_pubkey = 2;
+  uint32 user_id = 1;
+  string l1_address = 2;
+  string l2_pubkey = 3;
 }
 
 message RegisterUserResponse { UserInfo user_info = 1; }
