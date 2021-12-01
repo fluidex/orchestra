@@ -1,4 +1,18 @@
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+pub struct RegisterUserRequest {
+    #[prost(uint32, tag = "1")]
+    pub user_id: u32,
+    #[prost(string, tag = "2")]
+    pub l1_address: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub l2_pubkey: ::prost::alloc::string::String,
+}
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+pub struct RegisterUserResponse {
+    #[prost(message, optional, tag = "1")]
+    pub user_info: ::core::option::Option<UserInfo>,
+}
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct UserInfoQueryRequest {
     #[prost(uint32, optional, tag = "1")]
     pub user_id: ::core::option::Option<u32>,
@@ -9,14 +23,8 @@ pub struct UserInfoQueryRequest {
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct UserInfoQueryResponse {
-    #[prost(uint32, tag = "1")]
-    pub user_id: u32,
-    #[prost(uint32, tag = "2")]
-    pub nonce: u32,
-    #[prost(string, tag = "3")]
-    pub l1_address: ::prost::alloc::string::String,
-    #[prost(string, tag = "4")]
-    pub l2_pubkey: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "1")]
+    pub user_info: ::core::option::Option<UserInfo>,
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct L2BlocksQueryRequest {
@@ -186,6 +194,17 @@ pub struct SpotTradeTx {
     #[prost(string, tag = "14")]
     pub account2_token_sell_old_balance: ::prost::alloc::string::String,
 }
+#[derive(serde::Serialize, serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+pub struct UserInfo {
+    #[prost(uint32, tag = "1")]
+    pub user_id: u32,
+    #[prost(uint32, tag = "2")]
+    pub nonce: u32,
+    #[prost(string, tag = "3")]
+    pub l1_address: ::prost::alloc::string::String,
+    #[prost(string, tag = "4")]
+    pub l2_pubkey: ::prost::alloc::string::String,
+}
 #[derive(
     serde::Serialize,
     serde::Deserialize,
@@ -287,6 +306,21 @@ pub mod rollup_state_client {
             self.inner = self.inner.accept_gzip();
             self
         }
+        pub async fn register_user(
+            &mut self,
+            request: impl tonic::IntoRequest<super::RegisterUserRequest>,
+        ) -> Result<tonic::Response<super::RegisterUserResponse>, tonic::Status> {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path =
+                http::uri::PathAndQuery::from_static("/rollup_state.RollupState/RegisterUser");
+            self.inner.unary(request.into_request(), path, codec).await
+        }
         pub async fn user_info_query(
             &mut self,
             request: impl tonic::IntoRequest<super::UserInfoQueryRequest>,
@@ -356,6 +390,10 @@ pub mod rollup_state_server {
     #[doc = "Generated trait containing gRPC methods that should be implemented for use with RollupStateServer."]
     #[async_trait]
     pub trait RollupState: Send + Sync + 'static {
+        async fn register_user(
+            &self,
+            request: tonic::Request<super::RegisterUserRequest>,
+        ) -> Result<tonic::Response<super::RegisterUserResponse>, tonic::Status>;
         async fn user_info_query(
             &self,
             request: tonic::Request<super::UserInfoQueryRequest>,
@@ -412,6 +450,39 @@ pub mod rollup_state_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
+                "/rollup_state.RollupState/RegisterUser" => {
+                    #[allow(non_camel_case_types)]
+                    struct RegisterUserSvc<T: RollupState>(pub Arc<T>);
+                    impl<T: RollupState> tonic::server::UnaryService<super::RegisterUserRequest>
+                        for RegisterUserSvc<T>
+                    {
+                        type Response = super::RegisterUserResponse;
+                        type Future = BoxFuture<tonic::Response<Self::Response>, tonic::Status>;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RegisterUserRequest>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move { (*inner).register_user(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = RegisterUserSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec).apply_compression_config(
+                            accept_compression_encodings,
+                            send_compression_encodings,
+                        );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
                 "/rollup_state.RollupState/UserInfoQuery" => {
                     #[allow(non_camel_case_types)]
                     struct UserInfoQuerySvc<T: RollupState>(pub Arc<T>);
